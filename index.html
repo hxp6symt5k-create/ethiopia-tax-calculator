@@ -3,26 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ethiopian Salary Tax Calculator</title>
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&family=Noto+Serif+Ethiopic:wght@400;700&display=swap" rel="stylesheet">
+    <title>Suzi's Tax Calculator 🌸</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&family=Noto+Serif+Ethiopic:wght@400;700&family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <style>
         :root {
-            --bg-light: #f8fafc;
-            --card-bg: #ffffff;
-            --primary: #2563eb;
-            --secondary: #3b82f6;
-            --text-main: #1e293b;
-            --text-muted: #64748b;
-            --accent: #16a34a;
-            --danger: #dc2626;
-            --border: #e2e8f0;
+            --primary-pink: #ff85a2;
+            --deep-purple: #6c5ce7;
+            --soft-purple: #f3f0ff;
+            --text-dark: #2d3436;
+            --card-white: #ffffff;
+            --accent-pink: #fd79a8;
         }
 
         body {
-            font-family: 'Tajawal', 'Noto Serif Ethiopic', sans-serif;
-            background-color: var(--bg-light);
-            color: var(--text-main);
+            font-family: 'Quicksand', 'Tajawal', 'Noto Serif Ethiopic', sans-serif;
+            background: linear-gradient(135deg, #f3f0ff 0%, #ffeef8 100%);
+            color: var(--text-dark);
             margin: 0;
             display: flex;
             justify-content: center;
@@ -32,152 +29,178 @@
         }
 
         .container {
-            background: var(--card-bg);
+            background: var(--card-white);
             padding: 2.5rem;
-            border-radius: 20px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+            border-radius: 35px;
+            box-shadow: 0 15px 35px rgba(108, 92, 231, 0.15);
             width: 100%;
-            max-width: 500px;
-            border: 1px solid var(--border);
+            max-width: 480px;
+            border: 2px solid #ffffff;
             position: relative;
+            overflow: hidden;
         }
 
-        /* زر تبديل اللغة */
+        /* زر تبديل اللغة الأنيق */
         .lang-switch {
             position: absolute;
             top: 20px;
             right: 20px;
-            padding: 8px 15px;
-            border-radius: 50px;
-            border: 1px solid var(--primary);
-            background: transparent;
-            color: var(--primary);
+            padding: 8px 18px;
+            border-radius: 20px;
+            border: none;
+            background: var(--soft-purple);
+            color: var(--deep-purple);
             cursor: pointer;
-            font-weight: bold;
+            font-weight: 700;
             transition: 0.3s;
+            box-shadow: 0 4px 10px rgba(108, 92, 231, 0.1);
         }
 
         .lang-switch:hover {
-            background: var(--primary);
+            background: var(--deep-purple);
             color: white;
         }
 
         h1 {
             text-align: center;
-            font-size: 1.6rem;
+            font-size: 1.8rem;
             margin-bottom: 2rem;
-            color: var(--primary);
+            background: linear-gradient(to right, var(--deep-purple), var(--accent-pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
-        .input-group { margin-bottom: 1.2rem; }
+        .input-group { margin-bottom: 1.5rem; }
 
         label {
             display: block;
-            margin-bottom: 0.5rem;
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            font-weight: 600;
+            margin-bottom: 0.6rem;
+            color: var(--deep-purple);
+            font-size: 0.95rem;
+            font-weight: 700;
+            padding-left: 5px;
         }
 
         input {
             width: 100%;
-            padding: 12px;
-            border-radius: 10px;
-            border: 1px solid var(--border);
+            padding: 14px;
+            border-radius: 18px;
+            border: 2px solid #eeeefb;
             background: #fff;
-            color: var(--text-main);
-            font-size: 1rem;
+            color: var(--text-dark);
+            font-size: 1.1rem;
             box-sizing: border-box;
-            transition: border 0.3s;
+            transition: all 0.3s;
         }
 
         input:focus {
             outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+            border-color: var(--primary-pink);
+            box-shadow: 0 0 15px rgba(255, 133, 162, 0.2);
         }
 
         .results-card {
-            background: #f1f5f9;
-            padding: 1.5rem;
-            border-radius: 15px;
+            background: linear-gradient(145deg, #ffffff, #f9f8ff);
+            padding: 1.8rem;
+            border-radius: 25px;
             margin-top: 1.5rem;
+            border: 1px solid #f1f0ff;
         }
 
         .result-item {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 0.8rem;
-            padding-bottom: 0.5rem;
-            border-bottom: 1px solid #cbd5e1;
+            margin-bottom: 1rem;
+            padding-bottom: 0.8rem;
+            border-bottom: 1px solid #f1f0ff;
         }
 
         .result-item.total {
             border-bottom: none;
             margin-top: 1rem;
-            color: var(--accent);
+            color: var(--accent-pink);
             font-weight: 700;
-            font-size: 1.4rem;
+            font-size: 1.5rem;
         }
 
         .btn-pdf {
             width: 100%;
-            padding: 14px;
-            margin-top: 1.5rem;
-            border-radius: 10px;
+            padding: 16px;
+            margin-top: 2rem;
+            border-radius: 20px;
             border: none;
-            background: var(--primary);
+            background: linear-gradient(45deg, var(--deep-purple), var(--primary-pink));
             color: white;
             font-weight: 700;
             cursor: pointer;
-            font-size: 1rem;
-            transition: 0.3s;
+            font-size: 1.1rem;
+            transition: 0.4s;
+            box-shadow: 0 8px 20px rgba(255, 133, 162, 0.3);
         }
 
-        .btn-pdf:hover { opacity: 0.9; transform: scale(1.02); }
+        .btn-pdf:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 25px rgba(255, 133, 162, 0.4);
+        }
 
         .note {
             text-align: center;
-            margin-top: 1.5rem;
-            font-size: 1rem;
-            font-weight: bold;
-            color: var(--danger);
-            font-style: italic;
+            margin-top: 2rem;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--deep-purple);
+            background: #fdf2f7;
+            padding: 10px;
+            border-radius: 15px;
         }
 
         .footer {
             text-align: center;
-            margin-top: 1rem;
-            font-size: 0.75rem;
+            margin-top: 1.5rem;
+            font-size: 0.8rem;
             color: var(--text-muted);
+            opacity: 0.7;
+        }
+
+        /* زينة علوية صغيرة */
+        .decoration {
+            position: absolute;
+            top: -20px;
+            left: -20px;
+            width: 80px;
+            height: 80px;
+            background: rgba(255, 133, 162, 0.1);
+            border-radius: 50%;
+            z-index: -1;
         }
     </style>
 </head>
 <body>
 
 <div class="container" id="calculator-content">
+    <div class="decoration"></div>
     <button class="lang-switch" onclick="toggleLanguage()" id="langBtn">አማርኛ</button>
     
-    <h1 id="mainTitle">Ethiopian Salary Calculator</h1>
+    <h1 id="mainTitle">Suzi's Tax Calc ✨</h1>
     
     <div class="input-group">
         <label id="labelGross">Gross Salary (ETB)</label>
-        <input type="number" id="grossInput" placeholder="0.00" oninput="calculate()">
+        <input type="number" id="grossInput" placeholder="Enter amount..." oninput="calculate()">
     </div>
     
     <div class="input-group">
-        <label id="labelAllowance">Allowances (Non-Taxable)</label>
+        <label id="labelAllowance">Allowances (Bonus)</label>
         <input type="number" id="allowanceInput" placeholder="0.00" oninput="calculate()">
     </div>
 
     <div class="results-card" id="pdf-area">
         <div class="result-item">
-            <span id="resTotalLabel">Total Gross</span>
+            <span id="resTotalLabel">Total Income</span>
             <span id="display-gross">0.00 ETB</span>
         </div>
         <div class="result-item">
             <span id="resTaxLabel">Income Tax</span>
-            <span id="tax" style="color: var(--danger);">0.00 ETB</span>
+            <span id="tax" style="color: #e84393;">0.00 ETB</span>
         </div>
         <div class="result-item total">
             <span id="resNetLabel">Net Pay</span>
@@ -185,14 +208,14 @@
         </div>
     </div>
 
-    <button class="btn-pdf" id="btnPdf" onclick="downloadPDF()">📥 Download PDF</button>
+    <button class="btn-pdf" id="btnPdf" onclick="downloadPDF()">🌸 Download My Payslip</button>
 
     <div class="note">
         "Welcome to hell with regards Suzan 😁"
     </div>
 
     <div class="footer" id="footerText">
-        Updated Tax Law 2026 (1395/2017 E.C.)
+        Updated Ethiopia Tax Law 2026
     </div>
 </div>
 
@@ -201,25 +224,25 @@
 
     const translations = {
         en: {
-            title: "Ethiopian Salary Calculator",
+            title: "Suzi's Tax Calc ✨",
             gross: "Gross Salary (ETB)",
-            allowance: "Allowances (Non-Taxable)",
-            resTotal: "Total Gross",
+            allowance: "Allowances (Bonus)",
+            resTotal: "Total Income",
             resTax: "Income Tax",
             resNet: "Net Pay",
-            btnPdf: "📥 Download PDF",
-            footer: "Updated Tax Law 2026 (1395/2017 E.C.)",
+            btnPdf: "🌸 Download My Payslip",
+            footer: "Updated Ethiopia Tax Law 2026",
             langBtn: "አማርኛ"
         },
         am: {
-            title: "የደመወዝ ማስያ",
+            title: "የደመወዝ ማስያ ✨",
             gross: "ጠቅላላ ደመወዝ (ETB)",
-            allowance: "የማይከፈልባቸው አበል",
-            resTotal: "ጠቅላลา ድምር",
+            allowance: "ተضافሪ ክፍያዎች (አበል)",
+            resTotal: "ጠቅላላ ገቢ",
             resTax: "የደመወዝ ግብር",
-            resNet: "የተጣራ ደመወዝ",
-            btnPdf: "📥 በPDF አውርድ",
-            footer: "የ2018 ዓ.ም የግብر ሕግ (1395/2017)",
+            resNet: "የተጣራ ደመወز",
+            btnPdf: "🌸 በPDF አውርድ",
+            footer: "የኢትዮጵያ የ2018 ዓ.ም የግብር ሕግ",
             langBtn: "English"
         }
     };
@@ -227,7 +250,6 @@
     function toggleLanguage() {
         currentLang = currentLang === 'en' ? 'am' : 'en';
         const t = translations[currentLang];
-        
         document.getElementById('mainTitle').innerText = t.title;
         document.getElementById('labelGross').innerText = t.gross;
         document.getElementById('labelAllowance').innerText = t.allowance;
@@ -237,30 +259,24 @@
         document.getElementById('btnPdf').innerText = t.btnPdf;
         document.getElementById('footerText').innerText = t.footer;
         document.getElementById('langBtn').innerText = t.langBtn;
-        
-        // تغيير اتجاه النص حسب اللغة
-        document.body.dir = currentLang === 'am' ? 'ltr' : 'ltr'; 
     }
 
     function calculate() {
         const gross = parseFloat(document.getElementById('grossInput').value) || 0;
         const allowance = parseFloat(document.getElementById('allowanceInput').value) || 0;
         
-        const taxableIncome = gross; 
         let tax = 0;
-
-        if (taxableIncome > 14000) tax = (taxableIncome * 0.35) - 2050;
-        else if (taxableIncome > 10000) tax = (taxableIncome * 0.30) - 1350;
-        else if (taxableIncome > 7000) tax = (taxableIncome * 0.25) - 850;
-        else if (taxableIncome > 4000) tax = (taxableIncome * 0.20) - 500;
-        else if (taxableIncome > 2000) tax = (taxableIncome * 0.15) - 300;
+        if (gross > 14000) tax = (gross * 0.35) - 2050;
+        else if (gross > 10000) tax = (gross * 0.30) - 1350;
+        else if (gross > 7000) tax = (gross * 0.25) - 850;
+        else if (gross > 4000) tax = (gross * 0.20) - 500;
+        else if (gross > 2000) tax = (gross * 0.15) - 300;
         else tax = 0;
 
         if (tax < 0) tax = 0;
         const netPay = (gross - tax) + allowance;
 
         const format = (num) => num.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
-        
         document.getElementById('display-gross').innerText = format(gross) + " ETB";
         document.getElementById('tax').innerText = "- " + format(tax) + " ETB";
         document.getElementById('net').innerText = format(netPay) + " ETB";
@@ -270,7 +286,7 @@
         const element = document.getElementById('pdf-area');
         const opt = {
             margin: 1,
-            filename: 'Salary_Slip.pdf',
+            filename: 'My_Salary_Slip.pdf',
             image: { type: 'jpeg', quality: 0.98 },
             html2canvas: { scale: 2 },
             jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
